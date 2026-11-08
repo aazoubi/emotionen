@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Der Baum — Eine Reise in die Tiefe</title>
+  <meta name="description" content="Ein Baum versinkt durch die Zonen des Ozeans – von der Sonnenzone bis zum Challenger-Tief. Gefühle und echte Tiefsee-Lebewesen in jeder Tiefe." />
+  <meta name="theme-color" content="#02070d" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Instrument+Sans:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#sonne">Zum Inhalt springen</a>
+
+  <!-- atmosphere -->
+  <canvas id="ocean" aria-hidden="true"></canvas>
+  <div class="tree-layer" id="tree-layer" aria-hidden="true">
+    <img src="assets/tree.jpg" alt="" draggable="false" />
+    <div class="tree-layer__tint"></div>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- HUD -->
+  <aside class="gauge" aria-label="Tiefenmesser">
+    <div class="gauge__depth"><span id="depth-value">0</span><small>m</small></div>
+    <div class="gauge__zone" id="depth-zone">Oberfläche</div>
+    <dl class="gauge__readouts">
+      <div><dt>Licht</dt><dd id="r-light">100 %</dd></div>
+      <div><dt>Druck</dt><dd id="r-pressure">1 bar</dd></div>
+      <div><dt>Temp.</dt><dd id="r-temp">≈ 22 °C</dd></div>
+    </dl>
+    <div class="gauge__track" aria-hidden="true"><div class="gauge__fill" id="gauge-fill"></div></div>
+  </aside>
+
+  <nav class="zonenav" aria-label="Tiefenzonen"><ol id="zonenav-list"></ol></nav>
+
+  <button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="false">
+    <span class="motion-toggle__dot" aria-hidden="true"></span>
+    <span class="motion-toggle__label">Bewegung reduzieren</span>
+  </button>
+
+  <main id="story">
+
+    <section class="zone hero" id="oberflaeche" data-from="0" data-to="0" data-name="Oberfläche" data-short="0 m">
+      <div class="hero__copy">
+        <p class="eyebrow">Eine Reise über 10.935 Meter</p>
+        <h1>Der <em>Baum</em></h1>
+        <p class="hero__lede">Ein Baum versinkt im Meer. Mit ihm alles, was leicht war.<br />Unten bleibt, was trägt.</p>
+        <p class="hero__arabic" lang="ar" dir="rtl">شجرةٌ تغرق… لتجد جذورها</p>
+      </div>
+      <a class="hero__dive" href="#sonne"><span>Abtauchen</span><i aria-hidden="true"></i></a>
+    </section>
+
+    <section class="zone" id="sonne" data-from="0" data-to="200" data-name="Sonnenzone" data-short="0–200 m" data-emotions="epi">
+      <article class="zone__text" data-reveal>
+        <p class="zone__meta">Epipelagial · 0 – 200 m</p>
+        <h2>Hier ist alles <em>leicht.</em></h2>
+        <p>Warm, hell, voller Bewegung. Die Gefühle, die man gern zeigt, wachsen hier – dicht unter dem Licht.</p>
+        <p class="zone__fact">Rund die Hälfte des Sauerstoffs, den wir atmen, entsteht in dieser Schicht – durch winzige Algen im Wasser.</p>
+        <div class="chips" aria-label="Gefühle dieser Tiefe"></div>
+      </article>
+
+      <div class="fauna">
+        <figure class="specimen specimen--a" data-speed="0.16" data-info="turtle" tabindex="0" role="button" aria-label="Grüne Meeresschildkröte – Fakt öffnen">
+          <div class="specimen__media"><img src="assets/turtle.jpg" alt="Grüne Meeresschildkröte unter Wasser" loading="lazy" /></div>
+          <figcaption><span class="specimen__name">Grüne Meeresschildkröte</span><span class="specimen__depth">0 – 50 m</span></figcaption>
+        </figure>
+        <figure class="specimen specimen--b" data-speed="-0.14" data-info="coral" tabindex="0" role="button" aria-label="Korallenriff – Fakt öffnen">
+          <div class="specimen__media"><img src="assets/coral.jpg" alt="Korallenriff" loading="lazy" /></div>
+          <figcaption><span class="specimen__name">Korallenriff</span><span class="specimen__depth">0 – 50 m</span></figcaption>
+        </figure>
+        <figure class="specimen specimen--c" data-speed="0.24" data-info="jelly" tabindex="0" role="button" aria-label="Ohrenqualle – Fakt öffnen">
+          <div class="specimen__media"><img src="assets/jelly.jpg" alt="Ohrenqualle" loading="lazy" /></div>
+          <figcaption><span class="specimen__name">Ohrenqualle</span><span class="specimen__depth">0 – 200 m</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="zone" id="daemmerung" data-from="200" data-to="1000" data-name="Dämmerzone" data-short="200–1.000 m" data-emotions="meso">
+      <article class="zone__text" data-reveal>
+        <p class="zone__meta">Mesopelagial · 200 – 1.000 m</p>
+        <h2>Das Licht wird zur <em>Erinnerung.</em></h2>
+        <p>Nur ein Prozent des Sonnenlichts bleibt. Die Farben verschwinden, es wird blau und still.</p>
+        <p class="zone__fact">Jede Nacht steigen Milliarden Tiere aus dieser Zone nach oben zum Fressen – und sinken vor Sonnenaufgang zurück. Die größte Wanderung der Erde.</p>
+        <div class="chips" aria-label="Gefühle dieser Tiefe"></div>
+      </article>
+
+      <div class="fauna">
+        <figure class="specimen specimen--a" data-speed="-0.12" data-info="whale" tabindex="0" role="button" aria-label="Pottwal – Fakt öffnen">
+          <div class="specimen__media"><img src="assets/whale.jpg" alt="Pottwal" loading="lazy" /></div>
+          <figcaption><span class="specimen__name">Pottwal</span><span class="specimen__depth">bis 1.200 m</span></figcaption>
+        </figure>
+        <figure class="specimen specimen--b" data-speed="0.18" data-info="vampire" tabindex="0" role="button" aria-label="Vampirtintenfisch – Fakt öffnen">
+          <div class="specimen__media"><img src="assets/vampire.jpg" alt="Vampirtintenfisch" loading="lazy" /></div>
+          <figcaption><span class="specimen__name">Vampirtintenfisch</span><span class="specimen__depth">600 – 1.200 m</span></figcaption>
+        </figure>
+        <figure class="specimen specimen--c" data-speed="0.26" data-info="siphonophore" tabindex="0" role="button" aria-label="Staatsqualle – Fakt öffnen">
+          <div class="specimen__media"><img src="assets/siphono.jpg" alt="Staatsqualle" loading="lazy" /></div>
+          <figcaption><span class="specimen__name">Staatsqualle</span><span class="specimen__depth">bis in die Tiefsee</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="zone" id="mitternacht" data-from="1000" data-to="4000" data-name="Mitternachtszone" data-short="1.000–4.000 m" data-emotions="bathy">
+      <article class="zone__text" data-reveal>
+        <p class="zone__meta">Bathypelagial · 1.000 – 4.000 m</p>
+        <h2>Dunkelheit ist <em>kein Ende.</em></h2>
+        <p>Kein einziger Sonnenstrahl erreicht diese Tiefe. Angst und Einsamkeit wohnen hier. Und doch beginnt hier das Licht von innen.</p>
+        <p class="zone__fact">Rund drei Viertel der Tiere in der Wassersäule können selbst Licht erzeugen. In völliger Dunkelheit ist Licht eine Sprache.</p>
+        <div class="chips" aria-label="Gefühle dieser Tiefe"></div>
+      </article>
+
+      <div class="fauna">
+        <figure class="specimen specimen--a" data-speed="-0.2" data-info="angler" tabindex="0" role="button" aria-label="Tiefsee-Anglerfisch – Fakt öffnen">
+          <div class="specimen__media"><img src="assets/angler.jpg" alt="Tiefsee-Anglerfisch" loading="lazy" /></div>
+          <figcaption><span class="specimen__name">Tiefsee-Anglerfisch</span><span class="specimen__depth">1.000 – 4.000 m</span></figcaption>
+        </figure>
+        <figure class="specimen specimen--b" data-speed="0.22" data-info="atolla" tabindex="0" role="button" aria-label="Atolla-Qualle – Fakt öffnen">
+          <div class="specimen__media"><img src="assets/atolla.jpg" alt="Atolla-Qualle" loading="lazy" /></div>
+          <figcaption><span class="specimen__name">Atolla-Qualle</span><span class="specimen__depth">1.000 – 4.000 m</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="zone" id="abgrund" data-from="4000" data-to="6000" data-name="Tiefsee-Ebene" data-short="4.000–6.000 m">
+      <article class="zone__text" data-reveal>
+        <p class="zone__meta">Abyssopelagial · 4.000 – 6.000 m</p>
+        <h2>Wärme kommt <em>von innen.</em></h2>
+        <p>Nahe dem Gefrierpunkt, ein Druck wie 500 Atmosphären. Und trotzdem blüht hier Leben – um heiße Quellen, das nie die Sonne brauchte.</p>
+        <p class="zone__fact">Hydrothermale Quellen wurden erst 1977 entdeckt. Ihr Leben lebt nicht vom Licht, sondern von Chemie: Chemosynthese.</p>
+      </article>
+
+      <div class="fauna">
+        <figure class="specimen specimen--a" data-speed="0.12" data-info="vent" tabindex="0" role="button" aria-label="Schwarzer Raucher – Fakt öffnen">
+          <div class="specimen__media"><img src="assets/smoker.jpg" alt="Schwarzer Raucher" loading="lazy" /></div>
+          <figcaption><span class="specimen__name">Schwarzer Raucher</span><span class="specimen__depth">~4.000 m</span></figcaption>
+        </figure>
+        <figure class="specimen specimen--b" data-speed="-0.1" data-info="tubeworm" tabindex="0" role="button" aria-label="Riesenröhrenwurm – Fakt öffnen">
+          <div class="specimen__media"><img src="assets/tubeworm.jpg" alt="Riesenröhrenwurm" loading="lazy" /></div>
+          <figcaption><span class="specimen__name">Riesenröhrenwurm</span><span class="specimen__depth">an den Quellen</span></figcaption>
+        </figure>
+        <figure class="specimen specimen--c" data-speed="0.2" data-info="dumbo" tabindex="0" role="button" aria-label="Dumbo-Oktopus – Fakt öffnen">
+          <div class="specimen__media"><img src="assets/dumbo.jpg" alt="Dumbo-Oktopus" loading="lazy" /></div>
+          <figcaption><span class="specimen__name">Dumbo-Oktopus</span><span class="specimen__depth">bis 7.000 m</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="zone" id="graben" data-from="6000" data-to="10935" data-name="Hadal-Zone" data-short="6.000–10.935 m" data-emotions="roots">
+      <article class="zone__text" data-reveal>
+        <p class="zone__meta">Hadal · 6.000 – 10.935 m</p>
+        <h2>Am tiefsten Punkt: <em>Wurzeln.</em></h2>
+        <p>Kein Blatt, kein Licht. Aber dort, wo nichts mehr fällt, wächst das, was trägt.</p>
+        <p class="zone__fact">Im Challenger-Tief lastet über eine Tonne auf jedem Quadratzentimeter. Und trotzdem lebt hier etwas.</p>
+        <div class="chips" aria-label="Gefühle dieser Tiefe"></div>
+      </article>
+
+      <div class="fauna">
+        <figure class="specimen specimen--a" data-speed="-0.22" data-info="snailfish" tabindex="0" role="button" aria-label="Mariana-Scheibenbauch – Fakt öffnen">
+          <div class="specimen__media"><img src="assets/snailfish.jpg" alt="Mariana-Scheibenbauch" loading="lazy" /></div>
+          <figcaption><span class="specimen__name">Mariana-Scheibenbauch</span><span class="specimen__depth">bis 8.000 m</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="zone finale" id="grund" data-from="10935" data-to="10935" data-name="Grund" data-short="10.935 m">
+      <div class="finale__copy" data-reveal>
+        <p class="eyebrow">Challenger-Tief · 10.935 m</p>
+        <h2>Was in der Tiefe leuchtet,<br /><em>kommt von innen.</em></h2>
+        <p>Jedes Gefühl hat seinen Ort – oben im Licht oder unten im Dunkeln. Keines davon ist falsch. Manche sieht man erst, wenn alles andere gegangen ist.</p>
+        <p class="hero__arabic" lang="ar" dir="rtl">ما يضيء في العمق… يأتي من الداخل</p>
+        <a class="ascend" href="#oberflaeche">Wieder auftauchen <span aria-hidden="true">↑</span></a>
+        <p class="credit">Tiefenangaben gerundet; Temperatur und Druck sind Näherungswerte. Fotos: Wikimedia Commons / NOAA (Public Domain und CC, siehe unten).</p>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="modal" id="modal" aria-labelledby="modal-title">
+    <form method="dialog" class="modal__inner">
+      <p class="modal__meta" id="modal-meta"></p>
+      <h3 id="modal-title"></h3>
+      <p class="modal__ar" id="modal-ar" lang="ar" dir="rtl"></p>
+      <div class="modal__body" id="modal-body"></div>
+      <ul class="modal__stats" id="modal-stats"></ul>
+      <button class="modal__close" value="close" aria-label="Schließen">Schließen</button>
+    </form>
+  </dialog>
+
+  <footer class="credits" id="credits">
+    <details>
+      <summary>Bildnachweise</summary>
+      <ul>
+        <li>Baum: „Silhouette of bare tree branches under twilight sky“ — CC BY-SA 4.0</li>
+        <li>Anglerfisch (Melanocetus johnsonii), Dumbo-Oktopus, Vampirtintenfisch, Röhrenwurm, Scheibenbauch — NOAA / Public Domain</li>
+        <li>Ohrenqualle — Luc Viatour, CC BY-SA 3.0</li>
+        <li>Pottwal — CC BY-SA 2.0 · Schildkröte, Koralle — CC BY-SA 3.0 · Staatsqualle — CC BY 4.0 · Atolla — CC BY-SA 4.0</li>
+      </ul>
+    </details>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
