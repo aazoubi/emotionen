@@ -1,37 +1,33 @@
 /* Content: emotions on the tree + scientific facts. Plain globals, no build step. */
 window.OCEAN_DATA = {
-  /* zone keys map to the tree region where their emotions sit */
+  /* Exactly ONE emotion per zone (AGENTS.md › Nordstern). Everything in the zone serves it. */
   emotions: {
-    epi: [
-      { de: 'Freude', ar: 'فرح', text: 'Sie wächst ganz oben, wo das Licht am meisten trifft. Leicht zu zeigen, leicht zu teilen.', sea: 'In der Sonnenzone entsteht durch Photosynthese des Phytoplanktons rund die Hälfte des Sauerstoffs, den wir atmen.' },
-      { de: 'Hoffnung', ar: 'أمل', text: 'Ein Blatt, das sich zum Licht dreht – auch wenn es nicht weiß, wie lange es noch scheint.', sea: 'Sonnenlicht reicht maximal etwa 1.000 m tief. Hoffnung, so scheint es, reicht weiter.' },
-      { de: 'Neugier', ar: 'فضول', text: 'Der Ast, der am weitesten hinausragt. Ohne sie wäre niemand je getaucht.', sea: 'Rund drei Viertel des Meeresbodens sind bis heute nicht hochauflösend kartiert.' },
-      { de: 'Leichtigkeit', ar: 'خفّة', text: 'Sie hält nur, solange das Wasser warm ist. Sie ist das Erste, was man beim Sinken verliert.', sea: 'Mit jeden 10 Metern Tiefe steigt der Druck um etwa 1 bar – an der Oberfläche spürt man davon nichts.' },
-      { de: 'Staunen', ar: 'دهشة', text: 'Der Moment, bevor man versteht. Kinder wohnen hier.', sea: 'Ein einziger Sardinenschwarm kann viele Millionen Fische umfassen – und sich bewegen wie ein Körper.' }
-    ],
-    meso: [
-      { de: 'Sehnsucht', ar: 'حنين', text: 'Der Blick nach oben, zum Licht, das man noch ahnt, aber nicht mehr erreicht.', sea: 'Viele Tiere der Dämmerzone steigen jede Nacht hunderte Meter auf – und sinken bei Tagesanbruch zurück.' },
-      { de: 'Melancholie', ar: 'شجن', text: 'Nicht Trauer, nicht Freude – ein blaues Dazwischen. Schön auf eine Art, die wehtut.', sea: 'Blaues Licht (um 470 nm) dringt im Wasser am tiefsten. Die Dämmerzone ist buchstäblich blau.' },
-      { de: 'Zweifel', ar: 'شكّ', text: 'Die Äste werden dünner, die Richtung unklar. Zweifel ist das Gefühl, dass der Boden fehlt.', sea: 'Beilfische tarnen sich mit Leuchtorganen am Bauch – sie ersetzen das fehlende Licht von oben, damit ihr Schatten verschwindet.' },
-      { de: 'Stille', ar: 'صمت', text: 'Hier wird es leise. Nicht leer – leise. Man hört zum ersten Mal sich selbst.', sea: 'Schall reist im Wasser etwa 4,5-mal schneller als in Luft. In der SOFAR-Schicht trägt er über tausende Kilometer.' },
-      { de: 'Erinnerung', ar: 'ذكرى', text: 'Blätter, die sich gelöst haben, schweben noch eine Weile neben dir her.', sea: 'Meeresschnee – abgestorbenes organisches Material – rieselt ständig in die Tiefe und ernährt das Leben darunter.' }
-    ],
-    bathy: [
-      { de: 'Angst', ar: 'خوف', text: 'Sie wohnt dort, wo man nichts mehr sieht. Sie ist nicht der Feind – sie ist ein Wächter.', sea: 'Die Atolla-Qualle löst bei Angriff ein kreisendes Lichtsignal aus – ein „Alarm“, der größere Räuber anlockt.' },
-      { de: 'Trauer', ar: 'حزن', text: 'Das Gewicht all der Blätter, die gegangen sind. Trauer ist Liebe, die keinen Ort mehr hat.', sea: 'Ab 1.000 m herrschen meist nur noch etwa 4 °C – das ganze Jahr, Tag und Nacht gleich.' },
-      { de: 'Einsamkeit', ar: 'وحدة', text: 'In der Dunkelheit ist jeder allein – bis jemand zu leuchten beginnt.', sea: 'Bei manchen Anglerfischen verwachsen die winzigen Männchen dauerhaft mit dem Weibchen – Partner zu finden ist hier so selten.' },
-      { de: 'Verlust', ar: 'فقد', text: 'Der Baum ist kahl. Und gerade deshalb sieht man jetzt, woraus er wirklich besteht.', sea: 'Ein Walkadaver am Meeresboden („Whale Fall“) kann Jahrzehnte lang ganze Gemeinschaften ernähren.' }
-    ],
-    roots: [
-      { de: 'Vertrauen', ar: 'ثقة', text: 'Die tiefste Wurzel. Sie hält, auch wenn man sie nicht sieht.', sea: 'Riesenröhrenwürmer haben weder Mund noch Darm – sie vertrauen vollständig auf Bakterien in ihrem Körper.' },
-      { de: 'Geduld', ar: 'صبر', text: 'Wurzeln wachsen langsam. Nichts hier unten hat es eilig.', sea: 'Tiefseekorallen und manche Tiefseeschwämme können Jahrtausende alt werden.' },
-      { de: 'Liebe', ar: 'حبّ', text: 'Sie war nie in den Blättern. Sie war immer hier unten und hat alles getragen.', sea: 'Biolumineszenz ist im Meer mindestens dutzendfach unabhängig entstanden – Licht ist hier die Sprache, mit der man sich findet.' },
-      { de: 'Ursprung', ar: 'أصل', text: 'Woher wir kommen. Die ersten Lebewesen entstanden womöglich an Quellen wie diesen.', sea: 'Eine führende Hypothese verortet den Ursprung des Lebens an hydrothermalen Quellen in der Tiefsee.' },
-      { de: 'Dankbarkeit', ar: 'امتنان', text: 'Für alles, was gefallen ist – denn es hat den Weg nach unten gezeigt.', sea: 'Der Meeresboden speichert über Meeresschnee riesige Mengen Kohlenstoff – über Jahrhunderte bis Jahrmillionen.' }
-    ]
+    epi: {
+      de: 'Leichtigkeit', ar: 'خفّة', zone: 'Sonnenzone · 0 – 200 m',
+      text: 'Alles trägt hier: das Licht, das Wasser, du selbst. Leichtigkeit ist das Erste, was man beim Sinken verliert – und man merkt es erst, wenn sie fehlt.',
+      sea: 'Phytoplankton in dieser Schicht erzeugt rund die Hälfte des Sauerstoffs der Erde.'
+    },
+    meso: {
+      de: 'Stille', ar: 'صمت', zone: 'Dämmerzone · 200 – 1.000 m',
+      text: 'Nicht leer – leise. Die Blätter lösen sich ohne Geräusch. Zum ersten Mal hört man sich selbst.',
+      sea: 'Bei 200 m kommt nur noch rund 1 % des Sonnenlichts an; ab etwa 1.000 m nichts mehr.'
+    },
+    bathy: {
+      de: 'Einsamkeit', ar: 'وحدة', zone: 'Mitternachtszone · 1.000 – 4.000 m',
+      text: 'Kein Sonnenstrahl erreicht diese Tiefe. Wer hier gesehen werden will, muss sein eigenes Licht machen.',
+      sea: 'Bei manchen Anglerfischen verwächst das winzige Männchen dauerhaft mit dem Weibchen – so selten sind Begegnungen.'
+    },
+    abysso: {
+      de: 'Ehrfurcht', ar: 'خشوع', zone: 'Tiefsee-Ebene · 4.000 – 6.000 m',
+      text: 'Auf jedem Quadratzentimeter lasten rund 500 Kilogramm. Und trotzdem: Leben, das die Sonne nie gebraucht hat.',
+      sea: 'An hydrothermalen Quellen leben ganze Gemeinschaften von Chemosynthese statt von Licht.'
+    },
+    roots: {
+      de: 'Trost', ar: 'عزاء', zone: 'Hadal · 6.000 – 10.935 m',
+      text: 'Der Baum hat alles losgelassen, was leicht war. Was bleibt, sind seine Wurzeln – und sie halten.',
+      sea: 'Selbst im Challenger-Tief, bei über 1.000 bar, leben Flohkrebse und einzellige Foraminiferen.'
+    }
   },
-
-  zoneNames: { epi: 'Sonnenzone · Äste im Licht', meso: 'Dämmerzone · mittlere Äste', bathy: 'Mitternachtszone · untere Äste', roots: 'Hadal · Wurzeln' },
 
   /* Facts for creatures + zones (modal content) */
   info: {
@@ -64,11 +60,6 @@ window.OCEAN_DATA = {
       meta: 'Sonnenzone', title: 'Sardinenschwarm', ar: 'سرب السردين',
       body: 'Schwärme verwirren Räuber: Tausende identische Körper machen es schwer, ein einzelnes Ziel zu fixieren. Jeder Fisch orientiert sich an seinen nächsten Nachbarn über Augen und Seitenlinienorgan – ohne Anführer.',
       stats: [['Tiefe', '0 – ~100 m'], ['Strategie', 'Sicherheit in der Masse']]
-    },
-    jelly: {
-      meta: 'Sonnenzone', title: 'Ohrenqualle', ar: 'قنديل البحر',
-      body: 'Aurelia aurita treibt meist dicht unter der Oberfläche und ernährt sich von kleinem Plankton. Mit über 95 % Wasser ist sie fast durchsichtig – ein Körper aus Licht und Puls.',
-      stats: [['Tiefe', '0 – 200 m'], ['Körper', '> 95 % Wasser']]
     },
     turtle: {
       meta: 'Sonnenzone', title: 'Grüne Meeresschildkröte', ar: 'السلحفاة الخضراء',

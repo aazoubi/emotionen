@@ -8,11 +8,13 @@
 
 | Datei | Inhalt |
 |---|---|
-| `index.html` | Struktur, Zonen, Lebewesen-Karten |
-| `styles.css` | Gestaltung, Filmkorn, Responsive, Reduced Motion |
-| `app.js` | Scroll→Tiefe, Ozean-Canvas, Baum-Ebene, HUD, Navigation, Modal |
-| `data.js` | Gefühle (DE/AR) + wissenschaftliche Fakten |
-| `assets/` | Echte Fotos (Baum + 12 Tiefsee-Lebewesen) |
+| `index.html` | Struktur, Zonen, Lebewesen (SVG-Linienzeichnungen) |
+| `styles.css` | Tokens (Akzent, Zonenfarben), Gestaltung, Filmkorn, Responsive, Reduced Motion |
+| `tree.js` | Durchsichtiger Baum (prozedural, fester Seed), Blätter, Wurzeln, 1 Gefühl/Zone |
+| `app.js` | Scroll→Tiefe, Ozean-Canvas, Lichtabsorption, ROV-Lampe, HUD, Navigation, Modal |
+| `data.js` | Gefühle (DE/AR, eins pro Zone) + wissenschaftliche Fakten |
+
+Branch `variant/fotos`: Alternative mit echten Fotos (Wikimedia/NOAA) statt SVG.
 
 ## Nordstern (wichtiger als jedes Feature)
 

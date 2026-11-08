@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Der Baum — Eine Reise in die Tiefe</title>
-  <meta name="description" content="Ein Baum versinkt durch die Zonen des Ozeans – von der Sonnenzone bis zum Challenger-Tief. Gefühle und echte Tiefsee-Lebewesen in jeder Tiefe." />
-  <meta name="theme-color" content="#02070d" />
+  <meta name="description" content="Ein durchsichtiger Baum versinkt durch die Zonen des Ozeans – von der Sonnenzone bis ins Challenger-Tief. Eine Emotion pro Tiefe, echte Wissenschaft." />
+  <meta name="theme-color" content="#0b2236" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Instrument+Sans:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;500&display=swap" rel="stylesheet" />
@@ -14,14 +14,23 @@
 <body>
   <a class="skip" href="#sonne">Zum Inhalt springen</a>
 
-  <!-- atmosphere -->
+  <!-- fixed atmosphere -->
   <canvas id="ocean" aria-hidden="true"></canvas>
-  <div class="tree-layer" id="tree-layer" aria-hidden="true">
-    <img src="assets/tree.jpg" alt="" draggable="false" />
-    <div class="tree-layer__tint"></div>
-  </div>
+  <div class="caustics" aria-hidden="true"><div class="caustics__a"></div><div class="caustics__b"></div></div>
   <div class="grain" aria-hidden="true"></div>
-  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- the tree -->
+  <div class="tree-stage" id="tree-stage">
+    <svg id="tree" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet" role="group" aria-label="Der Baum – das Gefühl der aktuellen Tiefe ist anklickbar">
+      <defs></defs>
+      <g id="tree-sway">
+        <g id="roots"></g>
+        <g id="branches"></g>
+        <g id="leaves"></g>
+        <g id="labels"></g>
+      </g>
+    </svg>
+  </div>
 
   <!-- HUD -->
   <aside class="gauge" aria-label="Tiefenmesser">
@@ -44,136 +53,229 @@
 
   <main id="story">
 
+    <!-- 0 m · Aufbruch -->
     <section class="zone hero" id="oberflaeche" data-from="0" data-to="0" data-name="Oberfläche" data-short="0 m">
+      <div class="hero__sky" aria-hidden="true"><div class="hero__stars"></div></div>
+      <svg class="hero__waves" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+        <path class="wave wave--back" d="M0 60 Q 90 30 180 60 T 360 60 T 540 60 T 720 60 T 900 60 T 1080 60 T 1260 60 T 1440 60 T 1620 60 T 1800 60 V120 H0Z" />
+        <path class="wave wave--front" d="M0 70 Q 120 45 240 70 T 480 70 T 720 70 T 960 70 T 1200 70 T 1440 70 T 1680 70 T 1920 70 V120 H0Z" />
+      </svg>
       <div class="hero__copy">
         <p class="eyebrow">Eine Reise über 10.935 Meter</p>
         <h1>Der <em>Baum</em></h1>
-        <p class="hero__lede">Ein Baum versinkt im Meer. Mit ihm alles, was leicht war.<br />Unten bleibt, was trägt.</p>
-        <p class="hero__arabic" lang="ar" dir="rtl">شجرةٌ تغرق… لتجد جذورها</p>
+        <p class="hero__lede">Was bleibt, wenn das Licht geht?</p>
+        <p class="arabic" lang="ar" dir="rtl">ماذا يبقى حين يرحل الضوء؟</p>
       </div>
       <a class="hero__dive" href="#sonne"><span>Abtauchen</span><i aria-hidden="true"></i></a>
     </section>
 
-    <section class="zone" id="sonne" data-from="0" data-to="200" data-name="Sonnenzone" data-short="0–200 m" data-emotions="epi">
-      <article class="zone__text" data-reveal>
-        <p class="zone__meta">Epipelagial · 0 – 200 m</p>
-        <h2>Hier ist alles <em>leicht.</em></h2>
-        <p>Warm, hell, voller Bewegung. Die Gefühle, die man gern zeigt, wachsen hier – dicht unter dem Licht.</p>
-        <p class="zone__fact">Rund die Hälfte des Sauerstoffs, den wir atmen, entsteht in dieser Schicht – durch winzige Algen im Wasser.</p>
-        <div class="chips" aria-label="Gefühle dieser Tiefe"></div>
+    <!-- 0–200 m · Leichtigkeit -->
+    <section class="zone zone--epi" id="sonne" data-from="0" data-to="200" data-zone="epi" data-name="Sonnenzone" data-short="0–200 m">
+      <article class="card" data-reveal>
+        <p class="card__meta">Epipelagial · 0 – 200 m</p>
+        <h2><em>Leicht.</em></h2>
+        <p>Alles trägt hier. Das Licht, das Wasser, du selbst.</p>
+        <p class="fact"><strong>≈ 10 m</strong> Danach ist das meiste Rot verschluckt. Die Welt wird blau.</p>
+        <button class="card__more" type="button" data-info="zone-epi">Über die Sonnenzone</button>
       </article>
 
-      <div class="fauna">
-        <figure class="specimen specimen--a" data-speed="0.16" data-info="turtle" tabindex="0" role="button" aria-label="Grüne Meeresschildkröte – Fakt öffnen">
-          <div class="specimen__media"><img src="assets/turtle.jpg" alt="Grüne Meeresschildkröte unter Wasser" loading="lazy" /></div>
-          <figcaption><span class="specimen__name">Grüne Meeresschildkröte</span><span class="specimen__depth">0 – 50 m</span></figcaption>
-        </figure>
-        <figure class="specimen specimen--b" data-speed="-0.14" data-info="coral" tabindex="0" role="button" aria-label="Korallenriff – Fakt öffnen">
-          <div class="specimen__media"><img src="assets/coral.jpg" alt="Korallenriff" loading="lazy" /></div>
-          <figcaption><span class="specimen__name">Korallenriff</span><span class="specimen__depth">0 – 50 m</span></figcaption>
-        </figure>
-        <figure class="specimen specimen--c" data-speed="0.24" data-info="jelly" tabindex="0" role="button" aria-label="Ohrenqualle – Fakt öffnen">
-          <div class="specimen__media"><img src="assets/jelly.jpg" alt="Ohrenqualle" loading="lazy" /></div>
-          <figcaption><span class="specimen__name">Ohrenqualle</span><span class="specimen__depth">0 – 200 m</span></figcaption>
-        </figure>
+      <div class="creature" data-speed="-0.25" style="--top: 30%; --left: 50%;">
+        <button type="button" data-info="sardines" aria-label="Sardinenschwarm – Fakt öffnen"><svg viewBox="0 0 420 200" class="school" aria-hidden="true"></svg></button>
+        <span class="plate">Sardinen · 0–100 m</span>
+      </div>
+      <div class="creature" data-speed="0.18" style="--top: 64%; --left: 6%;">
+        <button type="button" data-info="turtle" aria-label="Grüne Meeresschildkröte – Fakt öffnen">
+          <svg viewBox="0 0 220 150" class="art turtle" aria-hidden="true">
+            <path class="flipper flipper--front" d="M118 62 C 150 30, 190 22, 205 30 C 190 50, 160 66, 128 74 Z" />
+            <path d="M70 92 C 55 112, 40 126, 26 128 C 34 112, 48 98, 64 86 Z" />
+            <path d="M126 92 C 140 110, 152 122, 164 124 C 158 110, 146 98, 134 88 Z" />
+            <ellipse cx="100" cy="78" rx="58" ry="34" />
+            <path class="detail" d="M60 78 Q 100 52 140 78 M70 66 L 82 92 M100 46 L 100 110 M130 66 L 118 92 M64 84 Q 100 104 136 84" />
+            <path d="M152 70 C 170 62, 186 66, 190 76 C 184 86, 168 88, 154 84 Z" />
+            <circle class="eye" cx="178" cy="73" r="1.6" />
+          </svg>
+        </button>
+        <span class="plate">Grüne Meeresschildkröte · 0–50 m</span>
+      </div>
+      <div class="reef" aria-hidden="true">
+        <svg viewBox="0 0 600 260" preserveAspectRatio="xMinYMax meet">
+          <path d="M30 260 C 30 200, 10 170, 24 130 C 34 104, 50 120, 46 150 C 44 176, 60 186, 66 150 C 72 110, 60 70, 84 54 C 102 44, 108 74, 96 100 C 86 124, 98 150, 112 120 C 124 96, 140 92, 140 120 C 140 160, 118 190, 126 260 Z" />
+          <path d="M170 260 C 160 220, 150 200, 162 180 C 172 164, 186 176, 182 196 C 200 170, 214 150, 232 160 C 246 170, 230 196, 214 214 C 232 206, 252 208, 250 226 C 248 244, 222 246, 214 260 Z" />
+          <path d="M300 260 C 296 236, 306 214, 320 206 C 312 182, 318 160, 336 158 C 352 158, 352 178, 344 196 C 362 186, 380 192, 376 212 C 372 232, 344 236, 340 260 Z" />
+          <path d="M420 260 C 420 230, 430 190, 452 160 C 470 136, 486 150, 474 176 C 466 196, 470 210, 486 196 C 506 178, 528 186, 518 210 C 508 234, 480 236, 476 260 Z" />
+        </svg>
+        <button type="button" class="reef__hit" data-info="coral" aria-label="Korallenriff – Fakt öffnen"></button>
+        <span class="plate plate--reef">Korallenriff · 0–50 m</span>
       </div>
     </section>
 
-    <section class="zone" id="daemmerung" data-from="200" data-to="1000" data-name="Dämmerzone" data-short="200–1.000 m" data-emotions="meso">
-      <article class="zone__text" data-reveal>
-        <p class="zone__meta">Mesopelagial · 200 – 1.000 m</p>
-        <h2>Das Licht wird zur <em>Erinnerung.</em></h2>
-        <p>Nur ein Prozent des Sonnenlichts bleibt. Die Farben verschwinden, es wird blau und still.</p>
-        <p class="zone__fact">Jede Nacht steigen Milliarden Tiere aus dieser Zone nach oben zum Fressen – und sinken vor Sonnenaufgang zurück. Die größte Wanderung der Erde.</p>
-        <div class="chips" aria-label="Gefühle dieser Tiefe"></div>
+    <!-- 200–1.000 m · Stille -->
+    <section class="zone zone--meso" id="daemmerung" data-from="200" data-to="1000" data-zone="meso" data-name="Dämmerzone" data-short="200–1.000 m">
+      <article class="card" data-reveal>
+        <p class="card__meta">Mesopelagial · 200 – 1.000 m</p>
+        <h2><em>Stille.</em></h2>
+        <p>Das Licht wird zur Erinnerung. Die Blätter lassen los.</p>
+        <p class="fact"><strong>≈ 1 %</strong> So viel Sonnenlicht erreicht noch 200 m Tiefe.</p>
+        <button class="card__more" type="button" data-info="zone-meso">Über die Dämmerzone</button>
       </article>
 
-      <div class="fauna">
-        <figure class="specimen specimen--a" data-speed="-0.12" data-info="whale" tabindex="0" role="button" aria-label="Pottwal – Fakt öffnen">
-          <div class="specimen__media"><img src="assets/whale.jpg" alt="Pottwal" loading="lazy" /></div>
-          <figcaption><span class="specimen__name">Pottwal</span><span class="specimen__depth">bis 1.200 m</span></figcaption>
-        </figure>
-        <figure class="specimen specimen--b" data-speed="0.18" data-info="vampire" tabindex="0" role="button" aria-label="Vampirtintenfisch – Fakt öffnen">
-          <div class="specimen__media"><img src="assets/vampire.jpg" alt="Vampirtintenfisch" loading="lazy" /></div>
-          <figcaption><span class="specimen__name">Vampirtintenfisch</span><span class="specimen__depth">600 – 1.200 m</span></figcaption>
-        </figure>
-        <figure class="specimen specimen--c" data-speed="0.26" data-info="siphonophore" tabindex="0" role="button" aria-label="Staatsqualle – Fakt öffnen">
-          <div class="specimen__media"><img src="assets/siphono.jpg" alt="Staatsqualle" loading="lazy" /></div>
-          <figcaption><span class="specimen__name">Staatsqualle</span><span class="specimen__depth">bis in die Tiefsee</span></figcaption>
-        </figure>
+      <div class="creature" data-speed="-0.12" style="--top: 12%; --left: 40%;">
+        <button type="button" data-info="whale" aria-label="Pottwal – Fakt öffnen">
+          <svg viewBox="0 0 520 180" class="art whale" aria-hidden="true">
+            <path d="M20 70 C 20 40, 70 28, 150 30 C 250 34, 340 46, 410 70 C 440 80, 456 90, 470 86 L 506 56 C 510 72, 500 92, 486 102 C 500 112, 510 130, 504 146 L 468 112 C 440 112, 400 120, 340 124 C 260 130, 150 132, 80 120 C 40 112, 20 96, 20 70 Z" />
+            <path class="detail" d="M30 96 C 80 106, 140 108, 200 104 M190 118 C 196 134, 186 150, 170 156 C 176 140, 176 128, 172 118 M240 60 C 290 62, 340 70, 380 80" />
+            <circle class="eye" cx="96" cy="70" r="2.2" />
+          </svg>
+        </button>
+        <span class="plate">Pottwal · taucht bis 2.000 m</span>
+      </div>
+      <div class="creature" data-speed="0.22" style="--top: 48%; --left: 5%;">
+        <button type="button" data-info="siphonophore" aria-label="Staatsqualle – Fakt öffnen"><svg viewBox="0 0 120 420" class="art siphono" aria-hidden="true"></svg></button>
+        <span class="plate">Staatsqualle</span>
+      </div>
+      <div class="creature" data-speed="-0.3" style="--top: 72%; --left: 56%;">
+        <button type="button" data-info="lanternfish" aria-label="Laternenfische – Fakt öffnen"><svg viewBox="0 0 300 140" class="art lanterns" aria-hidden="true"></svg></button>
+        <span class="plate">Laternenfische · 300–1.500 m</span>
       </div>
     </section>
 
-    <section class="zone" id="mitternacht" data-from="1000" data-to="4000" data-name="Mitternachtszone" data-short="1.000–4.000 m" data-emotions="bathy">
-      <article class="zone__text" data-reveal>
-        <p class="zone__meta">Bathypelagial · 1.000 – 4.000 m</p>
-        <h2>Dunkelheit ist <em>kein Ende.</em></h2>
-        <p>Kein einziger Sonnenstrahl erreicht diese Tiefe. Angst und Einsamkeit wohnen hier. Und doch beginnt hier das Licht von innen.</p>
-        <p class="zone__fact">Rund drei Viertel der Tiere in der Wassersäule können selbst Licht erzeugen. In völliger Dunkelheit ist Licht eine Sprache.</p>
-        <div class="chips" aria-label="Gefühle dieser Tiefe"></div>
+    <!-- 1.000–4.000 m · Einsamkeit -->
+    <section class="zone zone--bathy" id="mitternacht" data-from="1000" data-to="4000" data-zone="bathy" data-name="Mitternachtszone" data-short="1.000–4.000 m">
+      <article class="card" data-reveal>
+        <p class="card__meta">Bathypelagial · 1.000 – 4.000 m</p>
+        <h2><em>Allein.</em></h2>
+        <p>Kein Sonnenstrahl mehr. Nur das Licht, das Lebewesen selbst machen – und die Lampe, mit der wir hinsehen.</p>
+        <p class="fact"><strong>≈ 76 %</strong> der beobachteten Tiere der Wassersäule können selbst leuchten.</p>
+        <button class="card__more" type="button" data-info="zone-bathy">Über die Mitternachtszone</button>
       </article>
 
-      <div class="fauna">
-        <figure class="specimen specimen--a" data-speed="-0.2" data-info="angler" tabindex="0" role="button" aria-label="Tiefsee-Anglerfisch – Fakt öffnen">
-          <div class="specimen__media"><img src="assets/angler.jpg" alt="Tiefsee-Anglerfisch" loading="lazy" /></div>
-          <figcaption><span class="specimen__name">Tiefsee-Anglerfisch</span><span class="specimen__depth">1.000 – 4.000 m</span></figcaption>
-        </figure>
-        <figure class="specimen specimen--b" data-speed="0.22" data-info="atolla" tabindex="0" role="button" aria-label="Atolla-Qualle – Fakt öffnen">
-          <div class="specimen__media"><img src="assets/atolla.jpg" alt="Atolla-Qualle" loading="lazy" /></div>
-          <figcaption><span class="specimen__name">Atolla-Qualle</span><span class="specimen__depth">1.000 – 4.000 m</span></figcaption>
-        </figure>
+      <div class="creature" data-speed="-0.2" style="--top: 30%; --left: 56%;">
+        <button type="button" data-info="angler" aria-label="Tiefsee-Anglerfisch – Fakt öffnen">
+          <svg viewBox="0 0 260 200" class="art angler" aria-hidden="true">
+            <path class="detail" d="M96 74 C 100 40, 120 22, 146 26" />
+            <path d="M40 110 C 40 70, 80 58, 120 66 C 160 74, 186 100, 196 118 L 240 92 C 236 116, 236 134, 244 156 L 196 132 C 180 156, 140 170, 100 164 C 64 158, 40 140, 40 110 Z" />
+            <path class="detail" d="M42 118 L 52 108 L 58 122 L 66 110 L 72 126 L 82 112 L 88 130 L 98 116 L 104 134" />
+            <circle class="eye" cx="86" cy="94" r="3.5" />
+            <circle class="bio bio--halo" cx="150" cy="26" r="14" />
+            <circle class="bio" cx="150" cy="26" r="4" />
+          </svg>
+        </button>
+        <span class="plate">Tiefsee-Anglerfisch · 1.000–4.000 m</span>
+      </div>
+      <div class="creature" data-speed="0.25" style="--top: 60%; --left: 8%;">
+        <button type="button" data-info="atolla" aria-label="Atolla-Qualle – Fakt öffnen"><svg viewBox="0 0 200 200" class="art atolla" aria-hidden="true"></svg></button>
+        <span class="plate">Atolla-Qualle · 1.000–4.000 m</span>
+      </div>
+      <div class="creature" data-speed="-0.35" style="--top: 80%; --left: 62%;">
+        <button type="button" data-info="vampire" aria-label="Vampirtintenfisch – Fakt öffnen">
+          <svg viewBox="0 0 200 240" class="art vampire" aria-hidden="true">
+            <path class="detail" d="M74 52 C 54 40, 44 56, 66 66 M126 52 C 146 40, 156 56, 134 66" />
+            <path d="M100 14 C 124 14, 136 40, 134 72 C 133 90, 128 104, 122 112 L 78 112 C 72 104, 67 90, 66 72 C 64 40, 76 14, 100 14 Z" />
+            <path d="M78 110 C 50 130, 30 170, 22 214 C 44 200, 58 196, 70 204 C 78 190, 90 186, 100 192 C 110 186, 122 190, 130 204 C 142 196, 156 200, 178 214 C 170 170, 150 130, 122 110 Z" />
+            <path class="detail" d="M88 116 C 74 150, 60 180, 44 206 M100 118 L 100 190 M112 116 C 126 150, 140 180, 156 206" />
+            <circle class="eye" cx="88" cy="96" r="5" /><circle class="eye" cx="112" cy="96" r="5" />
+            <circle class="bio bio--blue" cx="72" cy="58" r="2.6" /><circle class="bio bio--blue" cx="128" cy="58" r="2.6" />
+          </svg>
+        </button>
+        <span class="plate">Vampirtintenfisch · 600–1.200 m</span>
       </div>
     </section>
 
-    <section class="zone" id="abgrund" data-from="4000" data-to="6000" data-name="Tiefsee-Ebene" data-short="4.000–6.000 m">
-      <article class="zone__text" data-reveal>
-        <p class="zone__meta">Abyssopelagial · 4.000 – 6.000 m</p>
-        <h2>Wärme kommt <em>von innen.</em></h2>
-        <p>Nahe dem Gefrierpunkt, ein Druck wie 500 Atmosphären. Und trotzdem blüht hier Leben – um heiße Quellen, das nie die Sonne brauchte.</p>
-        <p class="zone__fact">Hydrothermale Quellen wurden erst 1977 entdeckt. Ihr Leben lebt nicht vom Licht, sondern von Chemie: Chemosynthese.</p>
+    <!-- 4.000–6.000 m · Ehrfurcht -->
+    <section class="zone zone--abysso" id="abgrund" data-from="4000" data-to="6000" data-zone="abysso" data-name="Tiefsee-Ebene" data-short="4.000–6.000 m">
+      <article class="card" data-reveal>
+        <p class="card__meta">Abyssopelagial · 4.000 – 6.000 m</p>
+        <h2><em>Ehrfurcht.</em></h2>
+        <p>Leben, das die Sonne nie gebraucht hat.</p>
+        <p class="fact"><strong>≈ 500 kg</strong> lasten bei 5.000 m auf jedem Quadratzentimeter.</p>
+        <button class="card__more" type="button" data-info="zone-abysso">Über die Tiefsee-Ebene</button>
       </article>
 
-      <div class="fauna">
-        <figure class="specimen specimen--a" data-speed="0.12" data-info="vent" tabindex="0" role="button" aria-label="Schwarzer Raucher – Fakt öffnen">
-          <div class="specimen__media"><img src="assets/smoker.jpg" alt="Schwarzer Raucher" loading="lazy" /></div>
-          <figcaption><span class="specimen__name">Schwarzer Raucher</span><span class="specimen__depth">~4.000 m</span></figcaption>
-        </figure>
-        <figure class="specimen specimen--b" data-speed="-0.1" data-info="tubeworm" tabindex="0" role="button" aria-label="Riesenröhrenwurm – Fakt öffnen">
-          <div class="specimen__media"><img src="assets/tubeworm.jpg" alt="Riesenröhrenwurm" loading="lazy" /></div>
-          <figcaption><span class="specimen__name">Riesenröhrenwurm</span><span class="specimen__depth">an den Quellen</span></figcaption>
-        </figure>
-        <figure class="specimen specimen--c" data-speed="0.2" data-info="dumbo" tabindex="0" role="button" aria-label="Dumbo-Oktopus – Fakt öffnen">
-          <div class="specimen__media"><img src="assets/dumbo.jpg" alt="Dumbo-Oktopus" loading="lazy" /></div>
-          <figcaption><span class="specimen__name">Dumbo-Oktopus</span><span class="specimen__depth">bis 7.000 m</span></figcaption>
-        </figure>
+      <div class="creature" data-speed="-0.25" style="--top: 18%; --left: 60%;">
+        <button type="button" data-info="dumbo" aria-label="Dumbo-Oktopus – Fakt öffnen">
+          <svg viewBox="0 0 200 200" class="art dumbo" aria-hidden="true">
+            <path class="dumbo__ear" d="M58 70 C 30 50, 16 66, 30 86 C 40 96, 54 92, 62 84 Z M142 70 C 170 50, 184 66, 170 86 C 160 96, 146 92, 138 84 Z" />
+            <path d="M100 30 C 136 30, 150 60, 146 92 C 144 110, 136 120, 130 126 C 140 150, 150 166, 146 176 C 132 172, 120 152, 112 140 C 108 160, 104 174, 100 180 C 96 174, 92 160, 88 140 C 80 152, 68 172, 54 176 C 50 166, 60 150, 70 126 C 64 120, 56 110, 54 92 C 50 60, 64 30, 100 30 Z" />
+            <circle class="eye" cx="84" cy="90" r="4" /><circle class="eye" cx="116" cy="90" r="4" />
+          </svg>
+        </button>
+        <span class="plate">Dumbo-Oktopus · bis 7.000 m</span>
+      </div>
+
+      <div class="vents" data-speed="0.08">
+        <svg viewBox="0 0 700 420" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+          <defs>
+            <radialGradient id="smk"><stop offset="0" stop-color="#7d8c96" stop-opacity=".4" /><stop offset=".55" stop-color="#4b5d68" stop-opacity=".15" /><stop offset="1" stop-color="#2a3a46" stop-opacity="0" /></radialGradient>
+            <linearGradient id="rockg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1e2a" /><stop offset="1" stop-color="#01050a" /></linearGradient>
+          </defs>
+          <g class="vent__smoke">
+            <ellipse cx="210" cy="220" rx="23" ry="42" /><ellipse cx="212" cy="180" rx="32" ry="57" /><ellipse cx="206" cy="130" rx="40" ry="72" /><ellipse cx="214" cy="90" rx="49" ry="87" />
+            <ellipse cx="470" cy="260" rx="19" ry="35" /><ellipse cx="472" cy="220" rx="28" ry="50" /><ellipse cx="466" cy="170" rx="36" ry="65" /><ellipse cx="474" cy="120" rx="43" ry="77" />
+          </g>
+          <path class="vent__rock" d="M0 420 L 0 384 C 60 374, 110 388, 150 376 C 168 340, 170 300, 178 262 C 182 240, 186 230, 192 224 C 200 218, 220 218, 228 224 C 236 232, 240 250, 244 270 C 250 310, 254 340, 270 362 C 320 354, 380 368, 430 358 C 440 330, 444 300, 452 280 C 456 268, 462 262, 472 262 C 482 262, 488 270, 492 284 C 498 306, 502 334, 516 360 C 580 350, 640 372, 700 364 L 700 420 Z" />
+          <path class="vent__ridge" d="M186 300 C 196 296, 222 296, 236 302 M182 340 C 196 334, 228 336, 246 344 M448 316 C 460 312, 482 312, 494 318" />
+          <g class="worms">
+            <path d="M290 362 C 288 330, 296 310, 292 286" /><path d="M306 360 C 308 326, 300 304, 306 276" /><path d="M322 362 C 320 336, 330 316, 326 296" />
+            <path d="M338 358 C 340 330, 334 312, 340 290" /><path d="M548 362 C 546 336, 554 318, 550 300" /><path d="M564 360 C 566 334, 560 316, 566 296" />
+          </g>
+          <g class="plumes">
+            <ellipse cx="292" cy="282" rx="7" ry="11" /><ellipse cx="306" cy="272" rx="7" ry="11" /><ellipse cx="326" cy="292" rx="7" ry="11" />
+            <ellipse cx="340" cy="286" rx="7" ry="11" /><ellipse cx="550" cy="296" rx="7" ry="11" /><ellipse cx="566" cy="292" rx="7" ry="11" />
+          </g>
+        </svg>
+        <button type="button" class="vents__hit vents__hit--smoker" data-info="vent" aria-label="Schwarzer Raucher – Fakt öffnen"><span class="plate">Schwarzer Raucher · bis 400 °C</span></button>
+        <button type="button" class="vents__hit vents__hit--worms" data-info="tubeworm" aria-label="Riesenröhrenwurm – Fakt öffnen"><span class="plate">Riesenröhrenwurm</span></button>
       </div>
     </section>
 
-    <section class="zone" id="graben" data-from="6000" data-to="10935" data-name="Hadal-Zone" data-short="6.000–10.935 m" data-emotions="roots">
-      <article class="zone__text" data-reveal>
-        <p class="zone__meta">Hadal · 6.000 – 10.935 m</p>
-        <h2>Am tiefsten Punkt: <em>Wurzeln.</em></h2>
-        <p>Kein Blatt, kein Licht. Aber dort, wo nichts mehr fällt, wächst das, was trägt.</p>
-        <p class="zone__fact">Im Challenger-Tief lastet über eine Tonne auf jedem Quadratzentimeter. Und trotzdem lebt hier etwas.</p>
-        <div class="chips" aria-label="Gefühle dieser Tiefe"></div>
+    <!-- 6.000–10.935 m · Trost -->
+    <section class="zone zone--hadal" id="graben" data-from="6000" data-to="10935" data-zone="roots" data-name="Hadal-Zone" data-short="6.000–10.935 m">
+      <div class="trench" aria-hidden="true" data-speed="0.1">
+        <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+          <path d="M0 0 L 260 0 C 300 160, 250 300, 330 460 C 380 560, 420 700, 520 900 L 0 900 Z" />
+          <path d="M1440 0 L 1180 0 C 1130 180, 1190 320, 1100 480 C 1050 580, 1020 720, 920 900 L 1440 900 Z" />
+        </svg>
+      </div>
+      <article class="card" data-reveal>
+        <p class="card__meta">Hadal · 6.000 – 10.935 m</p>
+        <h2><em>Trost.</em></h2>
+        <p>Der Baum hat alles losgelassen. Was bleibt, sind seine Wurzeln.</p>
+        <p class="fact"><strong>&gt; 1.000 bar</strong> im Challenger-Tief. Und trotzdem Leben.</p>
+        <button class="card__more" type="button" data-info="zone-hadal">Über den Graben</button>
       </article>
 
-      <div class="fauna">
-        <figure class="specimen specimen--a" data-speed="-0.22" data-info="snailfish" tabindex="0" role="button" aria-label="Mariana-Scheibenbauch – Fakt öffnen">
-          <div class="specimen__media"><img src="assets/snailfish.jpg" alt="Mariana-Scheibenbauch" loading="lazy" /></div>
-          <figcaption><span class="specimen__name">Mariana-Scheibenbauch</span><span class="specimen__depth">bis 8.000 m</span></figcaption>
-        </figure>
+      <div class="creature" data-speed="-0.22" style="--top: 36%; --left: 58%;">
+        <button type="button" data-info="snailfish" aria-label="Mariana-Scheibenbauch – Fakt öffnen">
+          <svg viewBox="0 0 260 120" class="art snail" aria-hidden="true">
+            <path d="M20 60 C 20 34, 50 24, 80 28 C 130 34, 190 48, 244 58 C 196 70, 140 86, 84 92 C 48 96, 20 84, 20 60 Z" />
+            <path class="detail" d="M90 30 C 140 24, 200 40, 240 56 M90 90 C 140 92, 196 76, 240 62" />
+            <circle class="eye" cx="46" cy="52" r="2.4" />
+          </svg>
+        </button>
+        <span class="plate">Mariana-Scheibenbauch · bis 8.000 m</span>
+      </div>
+      <div class="creature" data-speed="0.3" style="--top: 68%; --left: 10%;">
+        <button type="button" data-info="amphipod" aria-label="Tiefsee-Flohkrebs – Fakt öffnen">
+          <svg viewBox="0 0 160 100" class="art amphi" aria-hidden="true">
+            <path d="M20 60 C 30 30, 70 20, 110 28 C 136 34, 148 50, 140 62 C 120 70, 70 74, 20 60 Z" />
+            <path class="detail" d="M40 64 L 34 86 M56 68 L 52 90 M72 70 L 70 92 M88 70 L 90 92 M104 68 L 110 88 M130 40 C 146 30, 154 18, 150 8 M136 48 C 152 44, 158 36, 158 26" />
+          </svg>
+        </button>
+        <span class="plate">Flohkrebs · bis 10.900 m</span>
       </div>
     </section>
 
-    <section class="zone finale" id="grund" data-from="10935" data-to="10935" data-name="Grund" data-short="10.935 m">
+    <!-- 10.935 m · Schluss -->
+    <section class="zone finale" id="grund" data-from="10935" data-to="10935" data-zone="roots" data-name="Grund" data-short="10.935 m">
+      <div class="seabed" aria-hidden="true">
+        <svg viewBox="0 0 1440 300" preserveAspectRatio="none"><path d="M0 120 C 200 90, 420 140, 640 110 C 860 80, 1080 130, 1440 100 L 1440 300 L 0 300 Z" /></svg>
+      </div>
       <div class="finale__copy" data-reveal>
         <p class="eyebrow">Challenger-Tief · 10.935 m</p>
-        <h2>Was in der Tiefe leuchtet,<br /><em>kommt von innen.</em></h2>
-        <p>Jedes Gefühl hat seinen Ort – oben im Licht oder unten im Dunkeln. Keines davon ist falsch. Manche sieht man erst, wenn alles andere gegangen ist.</p>
-        <p class="hero__arabic" lang="ar" dir="rtl">ما يضيء في العمق… يأتي من الداخل</p>
-        <a class="ascend" href="#oberflaeche">Wieder auftauchen <span aria-hidden="true">↑</span></a>
-        <p class="credit">Tiefenangaben gerundet; Temperatur und Druck sind Näherungswerte. Fotos: Wikimedia Commons / NOAA (Public Domain und CC, siehe unten).</p>
+        <h2>Hier unten fällt nichts mehr.<br /><em>Was bleibt, hält.</em></h2>
+        <p class="arabic" lang="ar" dir="rtl">هنا في الأعماق لا يسقط شيء. وما يبقى… يثبت.</p>
+        <a class="ascend" href="#oberflaeche">↑ zurück zur Oberfläche</a>
+        <p class="credit">Inspiriert von „شجرة المشاعر“ von Amin Sabry. Tiefen gerundet; Druck und Temperatur sind reale Näherungswerte.</p>
       </div>
     </section>
   </main>
@@ -185,23 +287,12 @@
       <p class="modal__ar" id="modal-ar" lang="ar" dir="rtl"></p>
       <div class="modal__body" id="modal-body"></div>
       <ul class="modal__stats" id="modal-stats"></ul>
-      <button class="modal__close" value="close" aria-label="Schließen">Schließen</button>
+      <button class="modal__close" value="close">Schließen</button>
     </form>
   </dialog>
 
-  <footer class="credits" id="credits">
-    <details>
-      <summary>Bildnachweise</summary>
-      <ul>
-        <li>Baum: „Silhouette of bare tree branches under twilight sky“ — CC BY-SA 4.0</li>
-        <li>Anglerfisch (Melanocetus johnsonii), Dumbo-Oktopus, Vampirtintenfisch, Röhrenwurm, Scheibenbauch — NOAA / Public Domain</li>
-        <li>Ohrenqualle — Luc Viatour, CC BY-SA 3.0</li>
-        <li>Pottwal — CC BY-SA 2.0 · Schildkröte, Koralle — CC BY-SA 3.0 · Staatsqualle — CC BY 4.0 · Atolla — CC BY-SA 4.0</li>
-      </ul>
-    </details>
-  </footer>
-
   <script src="data.js"></script>
+  <script src="tree.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
