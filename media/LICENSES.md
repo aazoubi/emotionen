@@ -2,7 +2,13 @@
 
 ## Film (`media/film/`)
 
-Alle Clips: NOAA Office of Ocean Exploration and Research, **gemeinfrei** (US-Regierungswerk).
+| Datei | Quelle | Lizenz | Inhalt |
+|---|---|---|---|
+| `epi.*` | https://www.pexels.com/video/serene-sunlit-underwater-seascape-40432354/ (Adrien Jacta) | Pexels-Lizenz (frei nutzbar, Bearbeitung erlaubt, keine Namensnennung nötig) | Sonnenstrahlen über Felsgrund, Ort unbekannt (0,5–14,5 s) |
+
+Hadal (6.000–10.935 m): bewusst **kein** Film – kein frei lizenziertes, fachlich passendes Material gefunden (Stand 2026-11-18).
+
+NOAA-Clips: NOAA Office of Ocean Exploration and Research, **gemeinfrei** (US-Regierungswerk).
 Zugeschnitten (ohne Titel/Logo/Untertitel), stumm, 1280 px, WebM (VP9) + MP4 (H.264) + Poster.
 
 | Datei | Quelle | Inhalt |

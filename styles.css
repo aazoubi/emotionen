@@ -380,7 +380,7 @@ h1 em, h2 em { font-style: italic; }
 .finale h2 { font-size: clamp(30px, 3.2vw, 46px); }
 .finale { padding-bottom: 9vh; }
 /* where real footage runs, the drawn animals step back: one kind of image per depth */
-.zone--meso .creature, .zone--bathy .creature, .zone--abysso .creature, .vents { display: none; }
+.zone--epi .creature, .reef, .zone--meso .creature, .zone--bathy .creature, .zone--abysso .creature, .vents { display: none; }
 .ayah--light .ayah__ar { text-align: right; max-width: 560px; }
 .ayah--light .ayah__de, .ayah--light .ayah__ref { max-width: 560px; text-align: right; }
 .reduced .ayah .w, .reduced .ayah .ayah__de, .reduced .ayah .ayah__ref { opacity: 1; }
