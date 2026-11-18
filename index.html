@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#0b2236" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Instrument+Sans:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Instrument+Sans:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;500&family=Amiri+Quran&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -16,6 +16,20 @@
 
   <!-- fixed atmosphere -->
   <canvas id="ocean" aria-hidden="true"></canvas>
+  <div class="film" id="film" aria-hidden="true">
+    <video data-from="0" data-to="200" data-max="0.55" muted playsinline loop preload="none" poster="media/film/epi.jpg" disablepictureinpicture>
+      <source src="media/film/epi.webm" type="video/webm" /><source src="media/film/epi.mp4" type="video/mp4" />
+    </video>
+    <video data-from="200" data-to="1000" data-max="0.4" muted playsinline loop preload="none" poster="media/film/meso.jpg" disablepictureinpicture>
+      <source src="media/film/meso.webm" type="video/webm" /><source src="media/film/meso.mp4" type="video/mp4" />
+    </video>
+    <video data-from="1000" data-to="4000" data-max="0.75" muted playsinline loop preload="none" poster="media/film/bathy.jpg" disablepictureinpicture>
+      <source src="media/film/bathy.webm" type="video/webm" /><source src="media/film/bathy.mp4" type="video/mp4" />
+    </video>
+    <video data-from="4000" data-to="6000" data-max="0.62" muted playsinline loop preload="none" poster="media/film/abysso.jpg" disablepictureinpicture>
+      <source src="media/film/abysso.webm" type="video/webm" /><source src="media/film/abysso.mp4" type="video/mp4" />
+    </video>
+  </div>
   <div class="caustics" aria-hidden="true"><div class="caustics__a"></div><div class="caustics__b"></div></div>
   <div class="grain" aria-hidden="true"></div>
 
@@ -71,6 +85,10 @@
 
     <!-- 0–200 m · Leichtigkeit -->
     <section class="zone zone--epi" id="sonne" data-from="0" data-to="200" data-zone="epi" data-name="Sonnenzone" data-short="0–200 m">
+      <figure class="ayah" data-reveal data-ayah>
+        <p class="ayah__ar" lang="ar" dir="rtl">أَوْ كَظُلُمَـٰتٍ فِى بَحْرٍ لُّجِّىٍّ</p>
+        <p class="ayah__de">Oder (sie sind) wie Finsternisse in einem abgrundtiefen Meer,</p>
+      </figure>
       <article class="card" data-reveal>
         <p class="card__meta">Epipelagial · 0 – 200 m</p>
         <h2><em>Leichtigkeit.</em></h2>
@@ -112,6 +130,10 @@
 
     <!-- 200–1.000 m · Stille -->
     <section class="zone zone--meso" id="daemmerung" data-from="200" data-to="1000" data-zone="meso" data-name="Dämmerzone" data-short="200–1.000 m">
+      <figure class="ayah" data-reveal data-ayah>
+        <p class="ayah__ar" lang="ar" dir="rtl">يَغْشَىٰهُ مَوْجٌ مِّن فَوْقِهِۦ مَوْجٌ مِّن فَوْقِهِۦ سَحَابٌ ۚ</p>
+        <p class="ayah__de">das von Wogen überdeckt ist, über denen (nochmals) Wogen sind, über denen (wiederum) Wolken sind:</p>
+      </figure>
       <article class="card" data-reveal>
         <p class="card__meta">Mesopelagial · 200 – 1.000 m</p>
         <h2><em>Stille.</em></h2>
@@ -143,6 +165,10 @@
 
     <!-- 1.000–4.000 m · Einsamkeit -->
     <section class="zone zone--bathy" id="mitternacht" data-from="1000" data-to="4000" data-zone="bathy" data-name="Mitternachtszone" data-short="1.000–4.000 m">
+      <figure class="ayah" data-reveal data-ayah>
+        <p class="ayah__ar" lang="ar" dir="rtl">ظُلُمَـٰتٌۢ بَعْضُهَا فَوْقَ بَعْضٍ</p>
+        <p class="ayah__de">Finsternisse, eine über der anderen.</p>
+      </figure>
       <article class="card" data-reveal>
         <p class="card__meta">Bathypelagial · 1.000 – 4.000 m</p>
         <h2><em>Einsamkeit.</em></h2>
@@ -186,6 +212,10 @@
 
     <!-- 4.000–6.000 m · Ehrfurcht -->
     <section class="zone zone--abysso" id="abgrund" data-from="4000" data-to="6000" data-zone="abysso" data-name="Tiefsee-Ebene" data-short="4.000–6.000 m">
+      <figure class="ayah" data-reveal data-ayah>
+        <p class="ayah__ar" lang="ar" dir="rtl">إِذَآ أَخْرَجَ يَدَهُۥ لَمْ يَكَدْ يَرَىٰهَا ۗ</p>
+        <p class="ayah__de">Wenn er seine Hand ausstreckt, kann er sie kaum sehen.</p>
+      </figure>
       <article class="card" data-reveal>
         <p class="card__meta">Abyssopelagial · 4.000 – 6.000 m</p>
         <h2><em>Ehrfurcht.</em></h2>
@@ -240,6 +270,11 @@
           <path d="M1440 0 L 1180 0 C 1130 180, 1190 320, 1100 480 C 1050 580, 1020 720, 920 900 L 1440 900 Z" />
         </svg>
       </div>
+      <figure class="ayah" data-reveal data-ayah>
+        <p class="ayah__ar" lang="ar" dir="rtl">وَمَن لَّمْ يَجْعَلِ ٱللَّهُ لَهُۥ نُورًا فَمَا لَهُۥ مِن نُّورٍ</p>
+        <p class="ayah__de">Und wem Allah kein Licht schafft, für den gibt es kein Licht.</p>
+        <figcaption class="ayah__ref">An-Nūr · 24:40</figcaption>
+      </figure>
       <article class="card" data-reveal>
         <p class="card__meta">Hadal · 6.000 – 10.935 m</p>
         <h2><em>Trost.</em></h2>
@@ -279,8 +314,14 @@
         <p class="eyebrow">Challenger-Tief · 10.935 m</p>
         <h2>Hier unten fällt nichts mehr.<br /><em>Was bleibt, hält.</em></h2>
         <p class="arabic" lang="ar" dir="rtl">هنا في الأعماق لا يسقط شيء. وما يبقى… يثبت.</p>
+        <figure class="ayah ayah--light" data-ayah>
+        <p class="ayah__ar ayah__ar--small" lang="ar" dir="rtl">يُوقَدُ مِن شَجَرَةٍ مُّبَـٰرَكَةٍ زَيْتُونَةٍ …</p>
+        <p class="ayah__ar" lang="ar" dir="rtl">نُّورٌ عَلَىٰ نُورٍ</p>
+        <p class="ayah__de">Ihr Brennstoff kommt von einem gesegneten Baum, einem Ölbaum … Licht über Licht.</p>
+        <figcaption class="ayah__ref">An-Nūr · 24:35</figcaption>
+      </figure>
         <a class="ascend" href="#oberflaeche">↑ zurück zur Oberfläche</a>
-        <p class="credit">Inspiriert von „شجرة المشاعر“ von Amin Sabry. Tiefen gerundet; Druck und Temperatur sind reale Näherungswerte.</p>
+        <p class="credit">Inspiriert von „شجرة المشاعر“ von Amin Sabry. Koran: Sure An-Nūr 24:40 und 24:35, Text nach quran.com (Uthmani), deutsche Übersetzung: Frank Bubenheim &amp; Nadeem Elyas. Filmaufnahmen: Sonnenzone – Adrien Jacta / Pexels (Pexels-Lizenz); darunter NOAA Office of Ocean Exploration and Research (gemeinfrei) – Meeresschnee; <i>Crossota</i>, Enigma Seamount, ~3.700 m (2016); Hydrothermalquellen, Marianen (2016). Tiefen gerundet; Druck und Temperatur sind reale Näherungswerte.</p>
       </div>
     </section>
   </main>
