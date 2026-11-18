@@ -213,7 +213,7 @@
   }
 
   /* ── ROV lamp: from ~600 m the tree is only seen where we shine ── */
-  const lamp = { x: 0, y: 0, tx: 0, ty: 0, k: 0, px: 0, py: 0, lastMove: -1e9 };
+  const lamp = { x: 0, y: 0, tx: 0, ty: 0, k: 0, px: 0, py: 0, lastMove: -1e9, open: 0 };
   if (finePointer) addEventListener('pointermove', (e) => { lamp.px = e.clientX; lamp.py = e.clientY; lamp.lastMove = performance.now(); }, { passive: true });
   // where the lamp rests: the visible emotion word (it is what this depth is about)
   let restCache = null, restFrame = 0;
@@ -224,14 +224,26 @@
     else restCache = [stageRect.left + stageRect.width / 2, vh * 0.48];
     return restCache;
   }
-  let lastMask = '';
+  let lastMask = '', lastFilmMask = '';
   function updateLamp() {
     const active = finePointer && performance.now() - lamp.lastMove < 2500;
     [lamp.tx, lamp.ty] = active ? [lamp.px, lamp.py] : lampRest();
     if (reduced) { lamp.x = lamp.tx; lamp.y = lamp.ty; }
     else { lamp.x += (lamp.tx - lamp.x) * 0.08; lamp.y += (lamp.ty - lamp.y) * 0.08; }
-    const outside = (1 - lamp.k * 0.93).toFixed(3);
+    // at the very bottom the whole tree becomes visible again: 'light upon light'
+    const atEnd = root.dataset.section === 'grund' ? 1 : 0;
+    lamp.open = reduced ? atEnd : lamp.open + (atEnd - lamp.open) * 0.02;
+    if (Math.abs(atEnd - lamp.open) < 0.002) lamp.open = atEnd;
+    const outside = (1 - lamp.k * 0.93 * (1 - lamp.open)).toFixed(3);
     const r = Math.round(Math.min(vw, vh) * (vw < 860 ? 0.62 : 0.42));
+    // the footage is only seen where the lamp shines once the sun is gone
+    const fo = (1 - lamp.k * 0.9).toFixed(3);
+    const fkey = `${Math.round(lamp.x)}|${Math.round(lamp.y)}|${fo}|${r}`;
+    if (fkey !== lastFilmMask) {
+      lastFilmMask = fkey;
+      const fg = lamp.k <= 0.001 ? '' : `radial-gradient(circle ${Math.round(r * 1.25)}px at ${Math.round(lamp.x)}px ${Math.round(lamp.y)}px, #000 0%, #000 25%, rgba(0,0,0,${fo}) 100%)`;
+      film.style.webkitMaskImage = film.style.maskImage = fg;
+    }
     const key = `${Math.round(lamp.x)}|${Math.round(lamp.y)}|${outside}|${r}`;
     if (key === lastMask) return;
     lastMask = key;
@@ -364,6 +376,40 @@
 
   const caustics = $('.caustics');
 
+  /* ── Ayah: one span per word, revealed in reading order ── */
+  $$('[data-ayah]').forEach((fig) => {
+    let n = 0;
+    $$('.ayah__ar', fig).forEach((ar) => {
+      const words = ar.textContent.trim().split(/\s+/);
+      ar.textContent = '';
+      words.forEach((w, i) => {
+        const span = document.createElement('span');
+        span.className = 'w'; span.style.setProperty('--i', n++); span.textContent = w;
+        ar.append(span, i < words.length - 1 ? ' ' : '');
+      });
+    });
+    fig.style.setProperty('--n', n);
+  });
+
+  /* ── Film: real footage per zone, crossfaded by depth, seen through the lamp ── */
+  const film = $('#film');
+  const saveData = !!(navigator.connection && navigator.connection.saveData);
+  const clips = $$('video', film).map((v) => ({ v, from: +v.dataset.from, to: +v.dataset.to, max: +v.dataset.max || 0.6, w: -1 }));
+  const smooth = (e0, e1, x) => { const t = clamp((x - e0) / (e1 - e0)); return t * t * (3 - 2 * t); };
+  function updateFilm(d) {
+    for (const c of clips) {
+      const r = Math.max(60, (c.to - c.from) * 0.14);
+      const w = smooth(c.from - r, c.from + r, d) * (1 - smooth(c.to - r, c.to + r, d));
+      const q = Math.round(w * 100) / 100;
+      if (q !== c.w) { c.w = q; c.v.style.opacity = (q * c.max).toFixed(3); }
+      if (d > c.from - (c.to - c.from) * 0.6 && c.v.preload === 'none') c.v.preload = 'auto';
+      const run = q > 0.01 && !reduced && !saveData && !document.hidden;
+      if (run && c.v.paused) c.v.play().catch(() => {});
+      else if (!run && !c.v.paused) c.v.pause();
+    }
+  }
+  document.addEventListener('visibilitychange', () => { if (document.hidden) clips.forEach((c) => c.v.pause()); needsDraw = true; });
+
   /* ── Reveal ────────────────────────────────────────────── */
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.2 });
   $$('[data-reveal]').forEach((n) => io.observe(n));
@@ -380,6 +426,7 @@
       updateLamp();
       drawOcean(t, reduced ? 0 : dt, reduced ? 0 : dY);
       updateHud(depth, idx);
+      updateFilm(depth);
       hud.fill.style.transform = `scaleY(${clamp(y / Math.max(1, docH - vh)).toFixed(4)})`;
 
       if (Math.abs(depth - lastTreeDepth) > 0.5 || needsDraw) {
